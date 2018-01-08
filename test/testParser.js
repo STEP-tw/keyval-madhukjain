@@ -19,14 +19,13 @@ describe("parse basic key values",function(){
 
   it("parses an empty string",function(){
     let actual=kvParser.parse("");
-    assert.equal(0,actual.length());
+    chaiAssert.equal(0,actual.length());
   });
 
   it("parse key=value",function(){
     let actual=kvParser.parse("key=value");
-    console.log(actual.key);
-    assert.equal("value",actual.key);
-    assert.equal(1,actual.length());
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal(1,actual.length());
   });
 
   it("parse when there are leading spaces before key",function(){

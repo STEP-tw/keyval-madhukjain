@@ -2,6 +2,7 @@ const src=function(filePath){return "../src/"+filePath};
 const errors=function(filePath){return "../src/errors/"+filePath};
 
 const assert=require('assert');
+const chaiAssert = require('chai').assert;
 const Parser=require(src('index.js')).Parser;
 const MissingValueError=require(errors('missingValueError.js'));
 const MissingEndQuoteError=require(errors('missingEndQuoteError.js'));
@@ -23,6 +24,7 @@ describe("parse basic key values",function(){
 
   it("parse key=value",function(){
     let actual=kvParser.parse("key=value");
+    console.log(actual.key);
     assert.equal("value",actual.key);
     assert.equal(1,actual.length());
   });

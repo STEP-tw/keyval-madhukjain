@@ -2,6 +2,7 @@ const src=function(filePath){return "../src/"+filePath};
 const errors=function(filePath){return "../src/errors/"+filePath};
 
 const assert=require('assert');
+const chaiAssert = require('chai').assert;
 const StrictParser=require(src('index.js')).StrictParser;
 const InvalidKeyError=require(errors('invalidKeyError.js'));
 
@@ -16,6 +17,7 @@ var invalidKeyErrorChecker=function(key,pos) {
 describe("strict parser",function(){
   it("should only parse keys that are specified for a single key",function(){
     let kvParser=new StrictParser(["name"]);
+    console.log(kvParser);
     assert.throws(
       () => {
         var p=kvParser.parse("age=23");
@@ -28,11 +30,10 @@ describe("strict parser",function(){
     let actual=kvParser.parse("name=john age=23");
     let expected={name:"john",age:"23"};
     assert.deepEqual(expected,actual);
-    assert.throws(
-      () => {
-        var p=kvParser.parse("color=blue");
-      },
-      invalidKeyErrorChecker("color",9))
+    assert.throws(() => {
+      var p=kvParser.parse("color=blue");
+    },
+    invalidKeyErrorChecker("color",9))
   });
 
   it("should throw an error when one of the keys is not valid",function(){
